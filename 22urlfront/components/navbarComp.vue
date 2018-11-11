@@ -1,0 +1,47 @@
+<template>
+  <b-navbar 
+    toggleable="md" 
+    type="light" 
+    variant="primary">
+
+    <b-navbar-toggle target="nav_collapse"/>
+
+    <img 
+      src="~/assets/logo.png"
+      class="logo-img">
+    <b-collapse 
+      id="nav_collapse" 
+      is-nav>
+
+      <!-- Right aligned nav items -->
+      <b-navbar-nav class="ml-auto">
+
+        <b-nav-item-dropdown 
+          text="Lang" 
+          right>
+          <b-dropdown-item href="#">EN</b-dropdown-item>
+          <b-dropdown-item href="#">JA</b-dropdown-item>
+        </b-nav-item-dropdown>
+
+        <b-nav-item right>
+          <login />
+        </b-nav-item>
+      </b-navbar-nav>
+
+    </b-collapse>
+  </b-navbar>
+</template>
+<script>
+import login from '~/components/login.vue'
+export default {
+  components: {
+    login
+  }
+}
+</script>
+
+<style scoped>
+.logo-img {
+    width:80px;
+}
+</style>

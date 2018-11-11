@@ -1,14 +1,15 @@
 <template>
   <section>
+    <navbarComp />
     <login />
   </section>
 </template>
 
 <script>
-import login from '~/components/login.vue'
+import navbarComp from '~/components/navbarComp.vue'
 export default {
   components: {
-    login
+    navbarComp
   }
 }
 </script>
