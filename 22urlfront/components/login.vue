@@ -1,6 +1,8 @@
 <template>
   <section>
-    <b-btn v-b-modal.loginModal>login</b-btn>
+    <b-btn
+      v-b-modal.loginModal
+      variant="info">login</b-btn>
     <b-modal 
       id="loginModal"
       title="login"

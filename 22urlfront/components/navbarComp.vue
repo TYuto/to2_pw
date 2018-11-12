@@ -1,7 +1,7 @@
 <template>
   <b-navbar 
     toggleable="md" 
-    type="light" 
+    type="info" 
     variant="light">
 
     <b-navbar-toggle target="nav_collapse"/>

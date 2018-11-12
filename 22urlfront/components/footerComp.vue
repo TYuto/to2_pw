@@ -2,7 +2,7 @@
   <div>
     <footer class="footer">
       <div class="container">
-        <p class="text-muted text-center">22url.link &copy;2018 YutoTamura All Rights Reserved</p>
+        <p class="text-muted text-center">22url.link &copy;2018 YutoTamura</p>
       </div>
     </footer>
   </div>
