@@ -2,7 +2,7 @@
   <b-navbar 
     toggleable="md" 
     type="light" 
-    variant="primary">
+    variant="light">
 
     <b-navbar-toggle target="nav_collapse"/>
 
