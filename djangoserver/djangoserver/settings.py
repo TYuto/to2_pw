@@ -129,9 +129,13 @@ STATIC_URL = '/api/static/'
 
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.github.GithubOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
 SOCIAL_AUTH_TWITTER_KEY = auth_key['tw']['key']
 SOCIAL_AUTH_TWITTER_SECRET = auth_key['tw']['tk']
+
+SOCIAL_AUTH_GITHUB_KEY = auth_key['gh']['key']
+SOCIAL_AUTH_GITHUB_SECRET = auth_key['gh']['tk']
