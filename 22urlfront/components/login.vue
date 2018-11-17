@@ -8,7 +8,9 @@
       title="login"
       hide-footer>
       <div class="login-btn my-1 mx-auto">
-        <b-button variant="outline-primary">
+        <b-button
+          variant="outline-primary"
+          href="/auth/login/twitter">
           <font-awesome-icon :icon="['fab', 'twitter']" /> 
           login with Twitter
         </b-button>
