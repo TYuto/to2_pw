@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Url
+
+
+@admin.register(Url)
+class UrlAdmin(admin.ModelAdmin):
+    pass

@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin, auth
 from django.urls import path, include
 from django.contrib.auth import views
+from urlshortner import urls
 
 urlpatterns = [
     path('api/admin/', admin.site.urls),
     path('api/logout/', views.LogoutView.as_view(), name='logout'),
     path('auth/', include('social_django.urls', namespace='social')),
+    path('api/', include(urls), name='url')
 ]
