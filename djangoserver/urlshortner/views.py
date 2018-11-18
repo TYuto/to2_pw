@@ -6,6 +6,7 @@ import uuid
 from datetime import datetime, timedelta, timezone
 import random
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
 class urls(APIView):
     def get(self, request):
         now = datetime.now()
@@ -93,3 +94,14 @@ class urls(APIView):
                 return url.shorten_url
             url.shorten_url = self._createUrl(urllen)
             self._saveUrl(url, urllen)
+def redirectView(request, domain='', rand=''):
+    try:
+        url = Url.objects.get(shorten_url=domain+'/'+rand)
+        print(url)
+    except:
+        return redirect('/')
+    now = datetime.now(tz=timezone.utc)
+    if url.expiration_date >= now:
+        return redirect(url.original_url)
+    else:
+        return redirect('/')
