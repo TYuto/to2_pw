@@ -21,7 +21,7 @@
         <b-link
           :href="url.original_URL"
           class="text-dark">
-          {{ url.original_URL }}
+          {{ url.original_url }}
         </b-link>
       </span>
       <span
@@ -30,7 +30,7 @@
         <b-link
           :href="'https://' + url.url"
           class="text-dark">
-          {{ url.url }}
+          {{ url.shorten_url }}
         </b-link>
       </span>
       <font-awesome-icon
@@ -38,14 +38,14 @@
         :icon="['far','copy']"
         title="copy"
         class="my-auto mx-auto"
-        @click="doCopy(url.url)"/>
+        @click="doCopy(url.shorten_url)"/>
       <div 
         class="progress" 
         style="height: 3px;width: 100%">
         <div 
+          :style="'width:'+ url.until + '%' " 
           class="progress-bar" 
           role="progressbar" 
-          style="width: 50%;" 
           aria-valuenow="10" 
           aria-valuemin="0" 
           aria-valuemax="100"/>
@@ -54,16 +54,19 @@
   </b-card>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data: function() {
     return {
-      urls: [
-        { original_URL: 'https://example.com/hogefugapio?hoge=hoge&fuga=fuga', expairation_date: '2018-02-01 16:00' ,url: '22ur.tk/xx' },
-        { original_URL: 'https://example.com/hoge', expairation_date: '2018-02-01 16:00' ,url: '22ur.tk/xx' },
-        { original_URL: 'https://example.com/hoge', expairation_date: '2018-02-01 16:00' ,url: '22ur.tk/xx' },
-        { original_URL: 'https://example.com/hoge', expairation_date: '2018-02-01 16:00' ,url: '22ur.tk/xx' }
-      ]
+      urls: []
     }
+  },
+  mounted: function(){
+    axios.get('/api/urls')
+    .then(response => {
+      console.log(response.data)
+      this.urls = response.data
+    })
   },
   methods: {
       doCopy: function (URL) {
