@@ -4,6 +4,7 @@
     class="mx-auto my-3">
     <b-input-group prepend="original URL">
       <b-form-input
+        v-model="originalUrl"
         for="type-url"/>
     </b-input-group>
     <b-form-radio-group
@@ -27,19 +28,24 @@
       class="float-left mr-1">
       <b-form-input
         :value="url"
-        readonly="isLogin"/>
+        :readonly="true"/>
     </b-input-group>
     <b-btn 
       variant="info"
-      class="float-right">create</b-btn>
+      class="float-right"
+      @click="create">create</b-btn>
   </b-card>
 </template>
 <script>
+import axios from 'axios'
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 export default {
   data(){
     return {
       isLogin: true,
       url: '',
+      originalUrl: '',
       selected: 'hour'
     }
   },
@@ -66,6 +72,23 @@ export default {
       }
       if (!this.isLogin) len++
       return len
+    },
+    create: function(){
+      if (this.originalUrl == ''){ 
+        alert('not allow blank')
+        return
+      }
+      let data = {
+        original: this.originalUrl,
+        period: this.selected
+      }
+      this.originalUrl = ''
+      console.log(data)
+      axios.post('/api/urls/',data)
+      .then(response => {
+        console.log(response)
+        this.$emit('create')
+      })
     }
   }
 }

@@ -2,8 +2,8 @@
   <section>
     <section id="wraper">
       <navbarComp />
-      <createUrl />
-      <urlTable />
+      <createUrl @create="$refs.table.update();"/>
+      <urlTable ref="table"/>
       <div id="push" />
     </section>
     <footerComp />

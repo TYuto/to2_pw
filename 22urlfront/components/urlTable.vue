@@ -28,7 +28,7 @@
         class="d-inline-block text-truncate"
         style="width: 30%">
         <b-link
-          :href="'https://' + url.url"
+          :href="'https://' + url.shorten_url"
           class="text-dark">
           {{ url.shorten_url }}
         </b-link>
@@ -77,6 +77,14 @@ export default {
       document.getSelection().selectAllChildren(temp)
       if (document.execCommand('copy')) alert('copied')
       document.body.removeChild(temp)
+    },
+    update: function(){
+      console.log('update called')
+      axios.get('/api/urls')
+      .then(response => {
+        console.log(response.data)
+        this.urls = response.data
+      })
     }
   }
     
