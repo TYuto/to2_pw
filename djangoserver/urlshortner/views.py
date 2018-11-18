@@ -8,16 +8,16 @@ import random
 from django.contrib.auth.models import User
 class urls(APIView):
     def get(self, request):
-        if request.user == None:
+        now = datetime.now()
+        if request.user.is_authenticated:
+            urls = Url.objects.filter(user=request.user.id).order_by('-updated_at')
+        else:
             try:
                 pk = request.session['uuid']
             except KeyError:
-                pk = uuid.uuid4
+                pk = str(uuid.uuid4())
                 request.session['uuid'] = pk
             urls = Url.objects.filter(tempuser_id=pk).order_by('-updated_at')
-        else:
-            urls = Url.objects.filter(user=request.user.id).order_by('-updated_at')
-            now = datetime.now()
         data = [
             {
                 'original_url': url.original_url,
@@ -35,17 +35,19 @@ class urls(APIView):
             period = request.data['period']
         except KeyError:
             return HttpResponse('parameter doesn mach',status=500)
-        if request.user == None:
+        print(request.user)
+        if request.user.is_authenticated:
+            url = Url(user=User.objects.get(id=request.user.id))
+            urllen = 0
+        else:
+            print('hoge')
             try:
                 pk = request.session['uuid']
             except KeyError:
-                pk = uuid.uuid4
+                pk = str(uuid.uuid4())
                 request.session['uuid'] = pk
             url = Url(tempuser_id=pk)
             urllen = 1
-        else:
-            url = Url(user=User.objects.get(id=request.user.id))
-            urllen = 0
         now = datetime.now()
         url.original_url = original_url
         if period == 'hour':

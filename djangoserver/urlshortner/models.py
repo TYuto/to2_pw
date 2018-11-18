@@ -6,6 +6,8 @@ class Url(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        blank=True,
+        null=True
     )
     tempuser_id = models.UUIDField(blank=True,null=True)
     original_url = models.URLField(max_length=1000)
