@@ -25,7 +25,8 @@ services:
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
     ports:
-      - "8080:8080"
+      - "8001:8001"
+      - "8002:8002"
     links:
       - node
       - python

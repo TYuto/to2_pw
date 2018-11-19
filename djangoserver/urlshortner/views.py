@@ -72,8 +72,7 @@ class urls(APIView):
         return response
     def _createUrl(self,urllen):
         domains = [
-            '22ur.tk/',
-            '22ur.cf/',
+            'red.localhost/',
         ]
         ranstr = 'abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789'
         return random.choice(domains) + ''.join([random.choice(ranstr) for i in range(urllen)])
@@ -95,6 +94,7 @@ class urls(APIView):
             url.shorten_url = self._createUrl(urllen)
             self._saveUrl(url, urllen)
 def redirectView(request, domain='', rand=''):
+    print(domain,rand,'for-febug')
     try:
         url = Url.objects.get(shorten_url=domain+'/'+rand)
         print(url)
