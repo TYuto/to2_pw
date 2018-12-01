@@ -30,18 +30,3 @@ services:
     links:
       - node
       - python
-  https-portal:
-    image: steveltn/https-portal:1
-    ports:
-      - '80:80'
-      - '443:443'
-    environment:
-      #STAGE: 'production'
-      STAGE: 'local'
-      DOMAINS: 'red.localhost -> http://nginx:8002/, localhost -> http://nginx:8001/'
-    volumes:
-    - ./ssl-certs:/var/lib/https-portal
-    - ./ssl-vhosts:/var/www/vhosts
-    links:
-      - nginx
-
