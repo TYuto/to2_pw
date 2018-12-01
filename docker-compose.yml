@@ -24,6 +24,7 @@ services:
     image: nginx
     volumes:
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./22urlfront/static/:/var/www/front/
     ports:
       - "8001:8001"
       - "8002:8002"
