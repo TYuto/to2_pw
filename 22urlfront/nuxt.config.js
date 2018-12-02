@@ -7,7 +7,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: pkg.name,
+    title: 'to2.pw - url短縮サービス',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -45,7 +45,7 @@ module.exports = {
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     ['@nuxtjs/google-analytics', {
-      id: 'UA-12301-2'
+      id: 'UA-116075455-3'
     }]
   ],
   /*

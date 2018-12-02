@@ -4,11 +4,11 @@
     class="mx-auto my-3">
     <span
       class="d-inline-block text-truncate"
-      style="width: 60%"> orignal Url
+      style="width: 60%"> 短縮元 URL
     </span>
     <span
       class="d-inline-block text-truncate"
-      style="width: 30%"> shorten url
+      style="width: 30%"> 短縮後 URL
     </span>
     <div
       v-for="(url, i) in urls" 

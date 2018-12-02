@@ -2,7 +2,7 @@
   <b-card
     style="max-width: 600px"
     class="mx-auto my-3">
-    <b-input-group prepend="original URL">
+    <b-input-group prepend="短縮元 URL">
       <b-form-input
         v-model="originalUrl"
         :state="varridate"
@@ -13,19 +13,19 @@
       v-model="selected"
       class="my-2 float-none"
       name="radioSubComponent">
-      <b-form-radio value="hour">3hour</b-form-radio>
-      <b-form-radio value="days">5Days</b-form-radio>
-      <b-form-radio value="month">5Month</b-form-radio>
+      <b-form-radio value="hour">3時間</b-form-radio>
+      <b-form-radio value="days">5日間</b-form-radio>
+      <b-form-radio value="month">5ヶ月間</b-form-radio>
     </b-form-radio-group>
     <font-awesome-icon
       v-b-tooltip.hover
       :icon="['far', 'question-circle']"
       size="lg"
-      title="When you log in, url is shortened by one character!"
+      title="ログインすると1文字短い短縮URLを作成できるようになります"
       class="mx-auto my-auto px-auto"/> 
     <b-input-group
       id="shorturl"
-      prepend="short URL"
+      prepend="短縮後 url"
       class="float-left mr-1">
       <b-form-input
         :value="url"
@@ -34,7 +34,7 @@
     <b-btn 
       variant="info"
       class="float-right"
-      @click="create">create</b-btn>
+      @click="create">作成</b-btn>
   </b-card>
 </template>
 <script>
@@ -77,7 +77,7 @@ export default {
     },
     create: function(){
       if (!this.varridate){ 
-        alert('有効なurlを入力してください')
+        alert('有効なURLを入力してください')
         return
       }
       let data = {
