@@ -83,10 +83,8 @@ export default {
         period: this.selected
       }
       this.originalUrl = ''
-      console.log(data)
       axios.post('/api/urls/',data)
       .then(response => {
-        console.log(response)
         this.$emit('create')
       })
     }
