@@ -86,9 +86,12 @@ export default {
       }
       axios.post('/api/urls/',data)
       .then(response => {
-        this.url = response.data.shorten_url
-        console.log(this.url)
-        this.$emit('create')
+        if (response.data.status){
+            this.url = response.data.shorten_url
+            this.$emit('create')
+        } else {
+          alert(response.data.message)
+        }
       })
     }
   }

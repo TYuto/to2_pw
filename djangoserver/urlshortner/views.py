@@ -31,6 +31,7 @@ class urls(APIView):
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
         return response
     def post(self, request):
+        now = datetime.now()
         try:
             original_url = request.data['original']
             period = request.data['period']
@@ -39,6 +40,11 @@ class urls(APIView):
         if request.user.is_authenticated:
             url = Url(user=User.objects.get(id=request.user.id))
             urllen = 0
+            if  Url.objects.filter(expiration_date__gt = now,user=request.user.id).count() >= 20:
+                data = {'status': False,'message': '一度に生成できる短縮URLは20個までです'}
+                json_str = json.dumps(data, ensure_ascii=False, indent=2)
+                response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
+                return response
         else:
             try:
                 pk = request.session['uuid']
@@ -47,7 +53,11 @@ class urls(APIView):
                 request.session['uuid'] = pk
             url = Url(tempuser_id=pk)
             urllen = 1
-        now = datetime.now()
+            if  Url.objects.filter(expiration_date__gt = now,user=request.user.id).count() >= 5:
+                data = {'status': False,'message': '一度に生成できる短縮URLは5個までです、ログインすると制限を20個まで増やすことができます'}
+                json_str = json.dumps(data, ensure_ascii=False, indent=2)
+                response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
+                return response
         url.original_url = original_url
         if period == 'hour':
             url.validity_period = 60*60*3
@@ -64,7 +74,7 @@ class urls(APIView):
         else:
             return HttpResponse('faild',status=500)
         url.expiration_date = now + period
-        data = {'shorten_url': self._saveUrl(url, urllen)}
+        data = {'status':True,'shorten_url': self._saveUrl(url, urllen)}
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
         return response
@@ -86,6 +96,7 @@ class urls(APIView):
         url.save()
         return url.shorten_url
 def redirectView(request, domain='', rand=''):
+    now = datetime.now()
     try:
         url = Url.objects.filter(expiration_date__gt = now).get(shorten_url=domain+'/'+rand)
         return redirect(url.original_url)
