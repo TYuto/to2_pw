@@ -5,6 +5,7 @@
     <b-input-group prepend="original URL">
       <b-form-input
         v-model="originalUrl"
+        :state="varridate"
         for="type-url"/>
     </b-input-group>
     <b-form-radio-group
@@ -43,19 +44,20 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 export default {
   data(){
     return {
-      isLogin: true,
       url: '',
       originalUrl: '',
-      selected: 'hour'
+      selected: 'hour',
+      varridate: null
     }
   },
   watch: {
     selected: function(){
-      this.url = '22ur.tk/' + '0'.repeat(this.urllen())
+      this.url = 'to2.pw/' + 'o'.repeat(this.urllen())
+    },
+    originalUrl: function(){
+      this.varridate = /^(http\:\/\/|https\:\/\/)(.{4,})$/.test(this.originalUrl)
+      this.url = 'to2.pw/' + 'o'.repeat(this.urllen())
     }
-  },
-  created: function(){
-    this.url = '22ur.tk/' + '0'.repeat(this.urllen())
   },
   methods: {
     urllen: function(){
@@ -70,21 +72,22 @@ export default {
         case 'month':
           len = 4
       }
-      if (!this.isLogin) len++
+      if (!this.$store.state.authUser) len++
       return len
     },
     create: function(){
-      if (this.originalUrl == ''){ 
-        alert('not allow blank')
+      if (!this.varridate){ 
+        alert('有効なurlを入力してください')
         return
       }
       let data = {
         original: this.originalUrl,
         period: this.selected
       }
-      this.originalUrl = ''
       axios.post('/api/urls/',data)
       .then(response => {
+        this.url = response.data.shorten_url
+        console.log(this.url)
         this.$emit('create')
       })
     }
