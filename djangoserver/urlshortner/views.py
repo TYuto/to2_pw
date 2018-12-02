@@ -75,31 +75,21 @@ class urls(APIView):
         ranstr = 'abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789'
         return random.choice(domains) + ''.join([random.choice(ranstr) for i in range(urllen)])
     def _saveUrl(self,url,urllen):
+        now = datetime.now()
         url.shorten_url = self._createUrl(urllen)
         try:
+            oldurl = Url.objects.filter(expiration_date__gt = now).get(shorten_url = url.shorten_url)
+            if oldurl.expiration_date.timestamp() > now.timestamp():
+                return self._saveUrl(url,urllen)
+        except Url.DoesNotExist:
             url.save()
-            return url.shorten_url
-        except:
-            conflict_url = Url.objects.get(shorten_url=url.shorten_url)
-            if conflict_url.expiration_date < datetime.now(tz=timezone.utc):
-                conflict_url.original_url = url.original_url
-                conflict_url.expiration_date = url.expiration_date
-                conflict_url.user = url.user
-                conflict_url.tempuser_id = url.tempuser_id
-                conflict_url.validity_period = url.validity_period
-                conflict_url.save()
-                return url.shorten_url
-            url.shorten_url = self._createUrl(urllen)
-            self._saveUrl(url, urllen)
+        url.save()
+        return url.shorten_url
 def redirectView(request, domain='', rand=''):
     try:
-        url = Url.objects.get(shorten_url=domain+'/'+rand)
-    except:
-        return redirect('/')
-    now = datetime.now(tz=timezone.utc)
-    if url.expiration_date >= now:
+        url = Url.objects.filter(expiration_date__gt = now).get(shorten_url=domain+'/'+rand)
         return redirect(url.original_url)
-    else:
+    except:
         return redirect('/')
 def getuser(request):
     if request.user.is_authenticated:
