@@ -55,6 +55,7 @@
 </template>
 <script>
 import axios from 'axios'
+import { setInterval } from 'timers';
 export default {
   data: function() {
     return {
@@ -66,6 +67,7 @@ export default {
     .then(response => {
       this.urls = response.data
     })
+    setInterval(this.update, 100000)
   },
   methods: {
       doCopy: function (URL) {
