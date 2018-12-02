@@ -19,7 +19,7 @@
         class="d-inline-block text-truncate"
         style="width: 60%">
         <b-link
-          :href="url.original_URL"
+          :href="url.original_url"
           class="text-dark">
           {{ url.original_url }}
         </b-link>
