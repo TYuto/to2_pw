@@ -2,7 +2,7 @@
   <footer
     class="footer bg-light pt-3 pb-3">
     <div class="">
-      <p class="text-muted text-center">22url.link &copy;2018 YutoTamura</p>
+      <p class="text-muted text-center">to2.pw &copy;2018 YutoTamura</p>
     </div>
   </footer>
 </template>
