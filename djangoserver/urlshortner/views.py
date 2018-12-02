@@ -36,12 +36,10 @@ class urls(APIView):
             period = request.data['period']
         except KeyError:
             return HttpResponse('parameter doesn mach',status=500)
-        print(request.user)
         if request.user.is_authenticated:
             url = Url(user=User.objects.get(id=request.user.id))
             urllen = 0
         else:
-            print('hoge')
             try:
                 pk = request.session['uuid']
             except KeyError:
@@ -52,15 +50,15 @@ class urls(APIView):
         now = datetime.now()
         url.original_url = original_url
         if period == 'hour':
-            url.validity_period = 3600
+            url.validity_period = 60*60*3
             urllen +=2
             period = timedelta(hours=3)
         elif period ==  'days':
-            url.validity_period = 43200
+            url.validity_period = 60*60*24*5
             urllen += 3
             period = timedelta(days=5)
         elif period ==  'month':
-            url.validity_period = 12960000
+            url.validity_period = 60*60*24*150
             urllen += 4
             period = timedelta(days=150)
         else:
@@ -97,7 +95,6 @@ def redirectView(request, domain='', rand=''):
     print(domain,rand,'for-febug')
     try:
         url = Url.objects.get(shorten_url=domain+'/'+rand)
-        print(url)
     except:
         return redirect('/')
     now = datetime.now(tz=timezone.utc)
