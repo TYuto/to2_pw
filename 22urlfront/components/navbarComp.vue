@@ -33,9 +33,24 @@
 </template>
 <script>
 import login from '~/components/login.vue'
+import axios from 'axios'
+import { mapState, mapMutations } from 'vuex'
 export default {
   components: {
     login
+  },
+  created: function() {
+    axios.get('/api/user')
+    .then(response => {
+      if (response.data.authed) {
+        this.SET_USER(response.data.username)
+      }
+    })
+  },
+  methods: {
+    ...mapMutations({
+      SET_USER: 'SET_USER'
+    })
   }
 }
 </script>

@@ -2,7 +2,12 @@
   <section>
     <b-btn
       v-b-modal.loginModal
+      v-if="!$store.state.authUser"
       variant="info">login</b-btn>
+    <b-btn
+      v-else
+      variant="info"
+      @click="$store.dispatch('logout')">logout</b-btn>
     <b-modal 
       id="loginModal"
       title="login"
@@ -36,7 +41,6 @@
 </template>
 <script>
 export default {
-    
 }
 </script>
 <style scoped>

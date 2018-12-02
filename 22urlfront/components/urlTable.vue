@@ -64,7 +64,6 @@ export default {
   mounted: function(){
     axios.get('/api/urls')
     .then(response => {
-      console.log(response.data)
       this.urls = response.data
     })
   },
@@ -79,10 +78,8 @@ export default {
       document.body.removeChild(temp)
     },
     update: function(){
-      console.log('update called')
       axios.get('/api/urls')
       .then(response => {
-        console.log(response.data)
         this.urls = response.data
       })
     }

@@ -105,3 +105,11 @@ def redirectView(request, domain='', rand=''):
         return redirect(url.original_url)
     else:
         return redirect('/')
+def getuser(request):
+    if request.user.is_authenticated:
+        data = {'authed': True,'username': request.user.username}
+    else:
+        data = {'authed': False}
+    json_str = json.dumps(data, ensure_ascii=False, indent=2)
+    response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
+    return response
