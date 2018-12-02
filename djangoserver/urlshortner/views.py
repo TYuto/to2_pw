@@ -26,7 +26,7 @@ class urls(APIView):
                 'validity_period': url.validity_period,
                 'expiration_date': url.expiration_date.timestamp(),
                 'until': (url.expiration_date.timestamp()-now.timestamp())*100/url.validity_period
-            } for url in urls]
+            } for url in urls if url.expiration_date.timestamp() > now.timestamp()]
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
         return response
@@ -92,7 +92,6 @@ class urls(APIView):
             url.shorten_url = self._createUrl(urllen)
             self._saveUrl(url, urllen)
 def redirectView(request, domain='', rand=''):
-    print(domain,rand,'for-febug')
     try:
         url = Url.objects.get(shorten_url=domain+'/'+rand)
     except:
