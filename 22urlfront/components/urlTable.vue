@@ -66,11 +66,7 @@ export default {
     axios.get('/api/urls')
     .then(response => {
       this.urls = response.data
-    }).catch(e => {
-      axios.get('/api/gen_200').then(r => {}).catch(e=>
-        window.location.href = '/p/maintenance'
-      )})
-    setInterval(this.update, 100000)
+    })
   },
   methods: {
       doCopy: function (URL) {
@@ -86,10 +82,7 @@ export default {
       axios.get('/api/urls')
       .then(response => {
         this.urls = response.data
-      }).catch(e => {
-        axios.get('/api/gen_200').then(r => {}).catch(e => 
-          window.location.href = '/p/maintenance'
-        )})
+      })
     }
   }
     

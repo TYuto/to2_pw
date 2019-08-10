@@ -92,10 +92,7 @@ export default {
         } else {
           alert(response.data.message)
         }
-      }).catch(e => {
-        axios.get('/api/gen_200').then(r => {}).catch(e=>
-          window.location.href = '/p/maintenance'
-        )})
+      })
     }
   }
 }

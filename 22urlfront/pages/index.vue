@@ -11,6 +11,10 @@
 </template>
 
 <script>
+import axios from 'axios'
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 import navbarComp from '~/components/navbarComp.vue'
 import footerComp from '~/components/footerComp.vue'
 import createUrl from '~/components/createUrl.vue'
@@ -21,6 +25,19 @@ export default {
     footerComp,
     createUrl,
     urlTable
+  },
+  created () {
+    this.checkServer()
+    setInterval(this.checkServer, 30 * 1000)
+  },
+  methods: {
+    checkServer: async function() {
+      try {
+        const res = await axios.get('/api/gen_200')
+      } catch(e) {
+        window.location.href = '/p/maintenance'
+      }
+    }
   }
 }
 </script>
