@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    extends:
+      file: docker-compose.common.yml
+      services: db   
+    restart: always
+  python:
+    extends:
+      file: docker-compose.common.yml
+      services: python
+    command: uwsgi --http :8000 --module djangoserver.wsgi
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "127.0.0.1:8000:8000"
+  node:
+    extends:
+      file: docker-compose.common.yml
+      service: node
+    ports:
+      - "127.0.0.1:3000:3000"

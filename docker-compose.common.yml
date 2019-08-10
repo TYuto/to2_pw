@@ -1,0 +1,20 @@
+version: '2'
+services:
+  db:
+    image: postgres
+    environment:
+      PGDATA: /var/lib/pgsql/data/url
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+    volumes:
+      - "./db/data:/var/lib/pgsql/data/url"
+  python:
+    build: ./docker/python
+    volumes:
+      - ./djangoserver:/src
+  node:
+    image: node:10.7.0
+    volumes:
+      - ./22urlfront:/src
+      - .docker_node_modules:/src/node_modules
+    working_dir: /src
+    command: [sh, -c, yarn install && yarn run dev]

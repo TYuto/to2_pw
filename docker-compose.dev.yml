@@ -1,23 +1,22 @@
 version: '2'
 services:
   db:
-    image: postgres
+    extends:
+      file: docker-compose.common.yml
+      service: db
   python:
-    build: ./docker/python
+    extends:
+      file: docker-compose.common.yml
+      service: python
     command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./djangoserver:/src
-    ports:
-      - "8000:8000"
     depends_on:
       - db
+    ports:
+      - "8000:8000"
   node:
-    image: node:10.7.0
-    volumes:
-      - ./22urlfront:/src
-      - .docker_node_modules:/src/node_modules
-    working_dir: /src
-    command: [sh, -c, yarn install && yarn run dev]
+    extends:
+      file: docker-compose.common.yml
+      service: node
     ports:
       - "3000:3000"
   nginx:
