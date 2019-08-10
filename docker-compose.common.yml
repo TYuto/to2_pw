@@ -4,6 +4,8 @@ services:
     image: postgres
     environment:
       PGDATA: /var/lib/pgsql/data/url
+      POSTGRES_USER: "changeme"
+      POSTGRES_PASSWORD: "changeme"
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
     volumes:
       - "./db/data:/var/lib/pgsql/data/url"
