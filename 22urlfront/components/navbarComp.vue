@@ -47,7 +47,10 @@ export default {
       if (response.data.authed) {
         this.SET_USER(response.data.username)
       }
-    })
+    }).catch(e => {
+      axios.get('/api/gen_200').then(r => {}).catch(e=>
+        window.location.href = '/p/maintenance'
+      )})
   },
   methods: {
     ...mapMutations({

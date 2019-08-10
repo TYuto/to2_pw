@@ -109,3 +109,5 @@ def getuser(request):
     json_str = json.dumps(data, ensure_ascii=False, indent=2)
     response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
     return response
+def gen_200(request):
+    return HttpResponse('', status=200)
