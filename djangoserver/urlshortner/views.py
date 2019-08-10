@@ -80,7 +80,7 @@ class urls(APIView):
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
         return response
     def _createUrl(self,urllen):
-        domains = os.environ.get('REDIRECT_DOMAINS', 'red.localhost')
+        domains = os.environ.get('REDIRECT_DOMAINS', 'red.localhost').split()
         ranstr = 'abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789'
         return random.choice(domains) + ''.join([random.choice(ranstr) for i in range(urllen)])
     def _saveUrl(self,url,urllen):
