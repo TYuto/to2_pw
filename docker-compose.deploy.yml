@@ -3,12 +3,12 @@ services:
   db:
     extends:
       file: docker-compose.common.yml
-      services: db   
+      service: db   
     restart: always
   python:
     extends:
       file: docker-compose.common.yml
-      services: python
+      service: python
     command: uwsgi --http :8000 --module djangoserver.wsgi
     restart: always
     depends_on:
