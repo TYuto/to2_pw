@@ -11,22 +11,26 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from .secret import auth_key
+from dotenv import load_dotenv
+
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path=dotenv_path)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'qs8lm^wz=gk(yu3#dvoa9u3_lom#myrk2+ntn&$ellk#j7re^v'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', '_')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEVELOPMENT', False)
 
-ALLOWED_HOSTS = ['localhost','red.localhost']
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', 'localhost').split()
 
 
 # Application definition
@@ -133,16 +137,12 @@ LOGOUT_REDIRECT_URL = '/'
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.twitter.TwitterOAuth',
     'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
 ]
 SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
 
-SOCIAL_AUTH_TWITTER_KEY = auth_key['tw']['key']
-SOCIAL_AUTH_TWITTER_SECRET = auth_key['tw']['tk']
+SOCIAL_AUTH_TWITTER_KEY = os.environ.get('TWITTER_KEY', '')
+SOCIAL_AUTH_TWITTER_SECRET = os.environ.get('TWITTER_SECRET', '')
 
-SOCIAL_AUTH_GITHUB_KEY = auth_key['gh']['key']
-SOCIAL_AUTH_GITHUB_SECRET = auth_key['gh']['tk']
-
-SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = auth_key['gg']['key']
-SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = auth_key['gg']['tk']
+SOCIAL_AUTH_GITHUB_KEY = os.environ.get('GITHUB_KEY', '')
+SOCIAL_AUTH_GITHUB_SECRET = os.environ.get('GITHUB_SECRET', '')

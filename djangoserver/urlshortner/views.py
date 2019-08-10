@@ -2,6 +2,7 @@ from .models import Url
 from rest_framework.views import APIView
 from django.http import HttpResponse
 import json
+import os
 import uuid
 from datetime import datetime, timedelta, timezone
 import random
@@ -79,9 +80,7 @@ class urls(APIView):
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
         return response
     def _createUrl(self,urllen):
-        domains = [
-            'red.localhost/',
-        ]
+        domains = os.environ.get('REDIRECT_DOMAINS', 'red.localhost')
         ranstr = 'abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789'
         return random.choice(domains) + ''.join([random.choice(ranstr) for i in range(urllen)])
     def _saveUrl(self,url,urllen):
