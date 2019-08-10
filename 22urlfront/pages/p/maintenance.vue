@@ -32,15 +32,12 @@ export default {
   },
   created() {
     this.checkServer()
-    setInterval(this.checkServer, 1000 * 30)
   },
   methods: {
     checkServer: function() {
       axios.get('/api/gen_200').then(response => {
-        if(response.status == 200) {
-          window.location.href = '/'
-        }
-      }).catch(e=>{})
+        window.location.href = '/'
+      })
     }
   }
 }
