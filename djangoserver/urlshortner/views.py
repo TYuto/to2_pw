@@ -54,7 +54,7 @@ class urls(APIView):
                 request.session['uuid'] = pk
             url = Url(tempuser_id=pk)
             urllen = 1
-            if  Url.objects.filter(expiration_date__gt = now,user=request.user.id).count() >= 5:
+            if  Url.objects.filter(expiration_date__gt = now,tempuser_id=pk).count() >= 5:
                 data = {'status': False,'message': '一度に生成できる短縮URLは5個までです、ログインすると制限を20個まで増やすことができます'}
                 json_str = json.dumps(data, ensure_ascii=False, indent=2)
                 response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
