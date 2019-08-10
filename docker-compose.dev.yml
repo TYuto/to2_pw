@@ -19,6 +19,7 @@ services:
       service: node
     ports:
       - "3000:3000"
+    command: [sh, -c, yarn install && yarn run dev]
   nginx:
     image: nginx
     volumes:

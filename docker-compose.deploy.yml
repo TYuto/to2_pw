@@ -19,5 +19,6 @@ services:
     extends:
       file: docker-compose.common.yml
       service: node
+    command: [sh, -c, yarn install && yarn run build && yarn run start]
     ports:
       - "127.0.0.1:3000:3000"
