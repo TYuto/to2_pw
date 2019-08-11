@@ -2,9 +2,14 @@
   <b-card 
     style="max-width: 600px"
     class="mx-auto my-3">
+    <b-modal
+      v-model="isDeleteModalOpen"
+      @ok="deleteUrl">
+      <p> {{ delUrl.shorten_url }}を削除します</p>
+    </b-modal>
     <span
       class="d-inline-block text-truncate"
-      style="width: 60%"> 短縮元 URL
+      style="width: 55%"> 短縮元 URL
     </span>
     <span
       class="d-inline-block text-truncate"
@@ -17,7 +22,7 @@
       class="my-3">
       <span
         class="d-inline-block text-truncate"
-        style="width: 60%">
+        style="width: 55%">
         <b-link
           :href="url.original_url"
           class="text-dark">
@@ -45,6 +50,12 @@
         title="QRコードを表示"
         class="my-auto mx-auto"
         @click="$emit('openModal',url)"/>
+      <font-awesome-icon
+        v-b-tooltip.hover
+        :icon="['fas','trash']"
+        title="削除"
+        class="my-auto mx-auto"
+        @click="openDeleteModal(url)"/>
       <div 
         class="progress" 
         style="height: 3px;width: 100%">
@@ -61,11 +72,16 @@
 </template>
 <script>
 import axios from 'axios'
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
 import { setInterval } from 'timers';
 export default {
   data: function() {
     return {
-      urls: []
+      urls: [],
+      delUrl: {},
+      isDeleteModalOpen: false,
     }
   },
   mounted: function(){
@@ -88,6 +104,18 @@ export default {
       axios.get('/api/urls')
       .then(response => {
         this.urls = response.data
+      })
+    },
+    openDeleteModal: function(url) {
+      this.delUrl = url
+      this.isDeleteModalOpen = true
+    },
+    deleteUrl: function() {
+      const params = new URLSearchParams()
+      params.append('shorten_url', this.delUrl.shorten_url)
+      axios.delete('/api/urls', {data: params})
+      .then(() => {
+        this.update()
       })
     }
   }

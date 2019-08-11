@@ -1,6 +1,7 @@
 from .models import Url
 from rest_framework.views import APIView
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 import json
 import os
 import uuid
@@ -85,6 +86,23 @@ class urls(APIView):
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
         return response
+    def delete(self, request):
+        try:
+            shorten_url = request.data['shorten_url']
+        except KeyError:
+            return HttpResponse('parameter doesn mach',status=400)
+        if request.user.is_authenticated:
+            url = get_object_or_404(Url, shorten_url=shorten_url, user=request.user.id)
+        else:
+            try:
+                pk = request.session['uuid']
+            except KeyError:
+                return HttpResponse('parameter doesn mach',status=400)
+            url = get_object_or_404(Url, shorten_url=shorten_url, tempuser_id=pk)
+        url.delete()
+        return HttpResponse('', status=200)
+
+
     def _createUrl(self,urllen):
         domains = os.environ.get('REDIRECT_DOMAINS', 'red.localhost').split()
         ranstr = 'abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789'
