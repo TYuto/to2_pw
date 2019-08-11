@@ -22,14 +22,6 @@
       </div>
       <div class="login-btn my-1 mx-auto">
         <b-button
-          variant="outline-danger"
-          href="/auth/login/google-oauth2">
-          <font-awesome-icon :icon="['fab', 'google']" /> 
-          login with Google
-        </b-button>
-      </div>
-      <div class="login-btn my-1 mx-auto">
-        <b-button
           variant="outline-dark"
           href="/auth/login/github">
           <font-awesome-icon :icon="['fab', 'github']" /> 
