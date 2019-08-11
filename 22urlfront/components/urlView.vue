@@ -4,7 +4,7 @@
     :ok-only="true">
     <h1 class="mx-5">
       <a
-        :href="shorten_url"
+        :href="'https://' + shorten_url"
         class="text-dark">
         {{ shorten_url }}
       </a>

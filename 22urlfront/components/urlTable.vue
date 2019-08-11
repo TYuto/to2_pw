@@ -22,7 +22,7 @@
       class="my-3">
       <span
         class="d-inline-block text-truncate"
-        style="width: 55%">
+        style="width: 54%">
         <b-link
           :href="url.original_url"
           class="text-dark">
@@ -31,31 +31,29 @@
       </span>
       <span
         class="d-inline-block text-truncate"
-        style="width: 30%">
+        style="width: 27%">
         <b-link
           :href="'https://' + url.shorten_url"
           class="text-dark">
           {{ url.shorten_url }}
         </b-link>
       </span>
-      <font-awesome-icon
-        v-b-tooltip.hover
-        :icon="['far','copy']"
-        title="コピー"
-        class="my-auto mx-auto"
-        @click="doCopy(url.shorten_url)"/>
-      <font-awesome-icon
-        v-b-tooltip.hover
-        :icon="['fas','qrcode']"
-        title="QRコードを表示"
-        class="my-auto mx-auto"
-        @click="$emit('openModal',url)"/>
-      <font-awesome-icon
-        v-b-tooltip.hover
-        :icon="['fas','trash']"
-        title="削除"
-        class="my-auto mx-auto"
-        @click="openDeleteModal(url)"/>
+      <span
+        class="d-inline-block"
+        style="width: 14%">
+        <font-awesome-icon
+          :icon="['far','copy']"
+          class="my-auto mx-auto"
+          @click="doCopy(url.shorten_url)"/>
+        <font-awesome-icon
+          :icon="['fas','qrcode']"
+          class="my-auto mx-auto"
+          @click="$emit('openModal',url)"/>
+        <font-awesome-icon
+          :icon="['fas','trash']"
+          class="my-auto mx-auto"
+          @click="openDeleteModal(url)"/>
+      </span>
       <div 
         class="progress" 
         style="height: 3px;width: 100%">
