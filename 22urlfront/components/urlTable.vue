@@ -36,9 +36,15 @@
       <font-awesome-icon
         v-b-tooltip.hover
         :icon="['far','copy']"
-        title="copy"
+        title="コピー"
         class="my-auto mx-auto"
         @click="doCopy(url.shorten_url)"/>
+      <font-awesome-icon
+        v-b-tooltip.hover
+        :icon="['fas','qrcode']"
+        title="QRコードを表示"
+        class="my-auto mx-auto"
+        @click="$emit('openModal',url)"/>
       <div 
         class="progress" 
         style="height: 3px;width: 100%">

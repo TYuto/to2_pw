@@ -92,7 +92,7 @@ export default {
       .then(response => {
         if (response.data.status){
             this.url = response.data.shorten_url
-            this.$emit('create')
+            this.$emit('create', {shorten_url: this.url, original_url: this.originalUrl})
         } else {
           alert(response.data.message)
         }

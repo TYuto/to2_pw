@@ -2,8 +2,11 @@
   <section>
     <section id="wraper">
       <navbarComp />
-      <createUrl @create="$refs.table.update();"/>
-      <urlTable ref="table"/>
+      <createUrl @create="urlCreated"/>
+      <urlTable
+        ref="table"
+        @openModal="openUrlModal"/>
+      <urlView ref="urlModal"/>
       <div id="push" />
     </section>
     <footerComp />
@@ -19,12 +22,14 @@ import navbarComp from '~/components/navbarComp.vue'
 import footerComp from '~/components/footerComp.vue'
 import createUrl from '~/components/createUrl.vue'
 import urlTable from '~/components/urlTable.vue'
+import urlView from '~/components/urlView.vue'
 export default {
   components: {
     navbarComp,
     footerComp,
     createUrl,
-    urlTable
+    urlTable,
+    urlView
   },
   created () {
     this.checkServer()
@@ -37,6 +42,13 @@ export default {
       } catch(e) {
         window.location.href = '/p/maintenance'
       }
+    },
+    urlCreated: function(shortenUrl) {
+      this.$refs.table.update();
+      this.$refs.urlModal.open(shortenUrl)
+    },
+    openUrlModal: function(shortenUrl){
+      this.$refs.urlModal.open(shortenUrl)
     }
   }
 }

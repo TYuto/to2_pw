@@ -35,6 +35,7 @@
     "bootstrap-vue": "^2.0.0-beta",
     "cross-env": "^5.2.0",
     "nuxt": "^2.0.0",
+    "qrcode": "^1.4.1",
     "valid-url": "^1.0.9"
   },
   "devDependencies": {
