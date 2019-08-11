@@ -5,10 +5,11 @@
     variant="light">
 
     <b-navbar-toggle target="nav_collapse"/>
-
-    <img 
-      src="~/assets/logo.png"
-      class="logo-img">
+    <a href="/">
+      <img 
+        src="~/assets/logo.png"
+        class="logo-img">
+    </a>
     <b-collapse 
       id="nav_collapse" 
       is-nav>

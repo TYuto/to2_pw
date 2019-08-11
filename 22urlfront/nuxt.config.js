@@ -46,7 +46,8 @@ module.exports = {
     'bootstrap-vue/nuxt',
     ['@nuxtjs/google-analytics', {
       id: 'UA-116075455-3'
-    }]
+    }],
+    '@nuxtjs/markdownit'
   ],
   /*
   ** Axios module configuration
@@ -54,6 +55,20 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
+
+  markdownit: {
+    preset: 'default',
+    injected: true, 
+    breaks: true, 
+    html: true, 
+    linkify: true,
+    typography: true, 
+    xhtmlOut: true,
+    langPrefix: 'language-',
+    quotes: '“”‘’',
+    highlight: function (/*str, lang*/) { return ''; },
+  },
+
 
   /*
   ** Build configuration
