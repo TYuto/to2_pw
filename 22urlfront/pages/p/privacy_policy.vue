@@ -3,9 +3,9 @@
     <section id="wraper">
       <navbarComp />
       <div style="width: 100%; height: 100%">
-        <div
-          class="mx-4 mt-5"
-          v-html="$md.render(mdStr)" />
+        <div class="mx-4 mt-5">
+          <privacyPolicy />
+        </div>
       </div>
     </section>
     <footerComp />
@@ -20,16 +20,12 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 import navbarComp from '~/components/navbarComp.vue'
 import footerComp from '~/components/footerComp.vue'
 
-import mdStr from '~/md/privacy_policy.md'
+import privacyPolicy from '~/components/md/privacyPolicy.vue'
 export default {
   components: {
     navbarComp,
     footerComp,
-  },
-  computed: {
-    mdStr() {
-      return  mdStr
-    }
+    privacyPolicy
   }
 }
 </script>
