@@ -8,6 +8,7 @@ from datetime import datetime, timedelta, timezone
 import random
 from django.contrib.auth.models import User
 from django.shortcuts import redirect
+import urllib
 class urls(APIView):
     def get(self, request):
         now = datetime.now()
@@ -36,8 +37,13 @@ class urls(APIView):
         try:
             original_url = request.data['original']
             period = request.data['period']
+            recaptcha_token = request.data['recaptcha']
         except KeyError:
             return HttpResponse('parameter doesn mach',status=500)
+        if not _verifyRecaptcha(recaptcha_token, 'create'):
+            data = {'status': False,'message': 'reCAPTCHA認証に失敗しました'}
+            json_str = json.dumps(data, ensure_ascii=False, indent=2)
+            return HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
         if request.user.is_authenticated:
             url = Url(user=User.objects.get(id=request.user.id))
             urllen = 0
@@ -111,3 +117,17 @@ def getuser(request):
     return response
 def gen_200(request):
     return HttpResponse('', status=200)
+def _verifyRecaptcha(token, action):
+    url = 'https://www.google.com/recaptcha/api/siteverify'
+    payload = {
+        'secret': os.environ.get('RECAPTCHA_SECRET', ''),
+        'response': token
+    }
+    data = urllib.parse.urlencode(payload).encode()
+    req = urllib.request.Request(url, data=data)
+
+    response = urllib.request.urlopen(req)
+    result = json.loads(response.read().decode())
+    if (not result['success']) or (not result['action'] == action):
+        return False
+    return True

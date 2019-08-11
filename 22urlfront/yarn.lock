@@ -910,6 +910,13 @@
   dependencies:
     consola "^2.0.7"
 
+"@nuxtjs/dotenv@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/dotenv/-/dotenv-1.4.0.tgz#900dae02dd6f89800374dcf4f1a559ee5dbfe911"
+  dependencies:
+    consola "^2.9.0"
+    dotenv "^8.0.0"
+
 "@nuxtjs/google-analytics@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@nuxtjs/google-analytics/-/google-analytics-2.0.2.tgz#75353143628fd7697b41eb5aa7da38a513394eca"
@@ -945,6 +952,10 @@
   dependencies:
     consola "^1.4.4"
     http-proxy-middleware "^0.19.0"
+
+"@nuxtjs/recaptcha@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/recaptcha/-/recaptcha-0.5.3.tgz#cc5b8d4603b216edc9c4af573a9d9bd88bed025a"
 
 "@nuxtjs/youch@^4.2.3":
   version "4.2.3"
@@ -1942,6 +1953,10 @@ consola@^2.0.0-1, consola@^2.0.7, consola@^2.2.4, consola@^2.3.0:
     std-env "^2.2.1"
     string-width "^2.1.1"
 
+consola@^2.9.0:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/consola/-/consola-2.10.1.tgz#4693edba714677c878d520e4c7e4f69306b4b927"
+
 console-browserify@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/console-browserify/-/console-browserify-1.1.0.tgz#f0241c45730a9fc6323b206dbf38edc741d0bb10"
@@ -2460,6 +2475,10 @@ dot-prop@^4.1.0, dot-prop@^4.1.1:
   resolved "https://registry.yarnpkg.com/dot-prop/-/dot-prop-4.2.0.tgz#1f19e0c2e1aa0e32797c49799f2837ac6af69c57"
   dependencies:
     is-obj "^1.0.0"
+
+dotenv@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.0.0.tgz#ed310c165b4e8a97bb745b0a9d99c31bda566440"
 
 duplexer3@^0.1.4:
   version "0.1.4"

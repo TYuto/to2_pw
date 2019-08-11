@@ -59,6 +59,9 @@ export default {
       this.url = 'to2.pw/' + 'o'.repeat(this.urllen())
     }
   },
+  async mounted() {
+    await this.$recaptcha.init()
+  },
   methods: {
     urllen: function(){
       let len = 0
@@ -75,14 +78,15 @@ export default {
       if (!this.$store.state.authUser) len++
       return len
     },
-    create: function(){
+    create: async function(){
       if (!this.varridate){ 
         alert('有効なURLを入力してください')
         return
       }
       let data = {
         original: this.originalUrl,
-        period: this.selected
+        period: this.selected,
+        recaptcha: await this.$recaptcha.execute('create'),
       }
       axios.post('/api/urls/',data)
       .then(response => {

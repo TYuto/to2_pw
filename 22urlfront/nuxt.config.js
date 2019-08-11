@@ -1,5 +1,5 @@
 const pkg = require('./package')
-
+require('dotenv').config()
 module.exports = {
   mode: 'spa',
 
@@ -47,7 +47,9 @@ module.exports = {
     ['@nuxtjs/google-analytics', {
       id: 'UA-116075455-3'
     }],
-    '@nuxtjs/markdownit'
+    '@nuxtjs/markdownit',
+    '@nuxtjs/recaptcha',
+    '@nuxtjs/dotenv'
   ],
   /*
   ** Axios module configuration
@@ -69,6 +71,11 @@ module.exports = {
     highlight: function (/*str, lang*/) { return ''; },
   },
 
+   recaptcha: {
+    hideBadge: false, // Hide badge element (v3)
+    siteKey: process.env.RECAPTCHA_SITEKEY ,    // Site key for requests
+    version: 3     // Version
+  },
 
   /*
   ** Build configuration
