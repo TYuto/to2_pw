@@ -1,6 +1,6 @@
 <template>
   <b-card 
-    style="max-width: 600px"
+    style="max-width: 700px"
     class="mx-auto my-3">
     <b-modal
       v-model="isDeleteModalOpen"
