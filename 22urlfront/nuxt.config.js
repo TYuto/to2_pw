@@ -7,7 +7,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'to2.pw - url短縮サービス',
+    title: 'to2.pw - 世界一短い短縮URL生成サービス',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
