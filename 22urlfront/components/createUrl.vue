@@ -47,7 +47,8 @@ export default {
       url: '',
       originalUrl: '',
       selected: 'hour',
-      varridate: null
+      varridate: null,
+      recaptcha: ''
     }
   },
   watch: {
@@ -61,6 +62,7 @@ export default {
   },
   async mounted() {
     await this.$recaptcha.init()
+    await this.updateRecaptcha()
   },
   methods: {
     urllen: function(){
@@ -86,17 +88,21 @@ export default {
       let data = {
         original: this.originalUrl,
         period: this.selected,
-        recaptcha: await this.$recaptcha.execute('create'),
+        recaptcha: this.recaptcha,
       }
       axios.post('/api/urls/',data)
       .then(response => {
         if (response.data.status){
             this.url = response.data.shorten_url
             this.$emit('create', {shorten_url: this.url, original_url: this.originalUrl})
+            this.updateRecaptcha()
         } else {
           alert(response.data.message)
         }
       })
+    },
+    updateRecaptcha: async function() {
+      this.recaptcha = await this.$recaptcha.execute('create')
     }
   }
 }
