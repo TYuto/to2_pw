@@ -40,7 +40,7 @@ class urls(APIView):
             period = request.data['period']
             recaptcha_token = request.data['recaptcha']
         except KeyError:
-            return HttpResponse('parameter doesn mach',status=500)
+            return HttpResponse('parameter doesnt mach',status=400)
         if not _verifyRecaptcha(recaptcha_token, 'create'):
             data = {'status': False,'message': 'reCAPTCHA認証に失敗しました'}
             json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -64,7 +64,7 @@ class urls(APIView):
             if  Url.objects.filter(expiration_date__gt = now,tempuser_id=pk).count() >= 5:
                 data = {'status': False,'message': '一度に生成できる短縮URLは5個までです、ログインすると制限を20個まで増やすことができます'}
                 json_str = json.dumps(data, ensure_ascii=False, indent=2)
-                response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
+                response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=406)
                 return response
         url.original_url = original_url
         if period == 'hour':
