@@ -3,6 +3,11 @@ require('dotenv').config()
 module.exports = {
   mode: 'spa',
 
+  env: {
+    CTF_SPACE_ID: 'fep0d93bujp2',
+    CTF_CDA_ACCESS_TOKEN: 'faGOk-t6_A3VZguBNJJ2wpkbPDoXakKMDKWL_M7viY4',
+  },
+
   /*
   ** Headers of the page
   */
@@ -61,7 +66,7 @@ module.exports = {
   proxy: [
     ['/auth/**', { target: 'http://python:8000', changeOrigin: false}],
     ['/api/**', { target: 'http://python:8000', changeOrigin: false}],
-    [['/*', '!/_nuxt/**', '!/', '!/p/**'], {target: 'http://python:8000/', changeOrigin: false}],
+    [['/*', '!/_nuxt/**', '!/', '!/p/**', '!/release/**'], {target: 'http://python:8000/', changeOrigin: false}],
   ],
 
   markdownit: {
