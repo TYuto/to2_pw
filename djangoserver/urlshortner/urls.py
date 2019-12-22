@@ -2,9 +2,9 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('urls/', views.urls.as_view()),
-    path('<str:domain>/<str:rand>/', views.redirectView),
-    path('<str:domain>/<str:rand>', views.redirectView),
-    path('user/', views.getuser),
-    path('gen_200/', views.gen_200)
+    path('api/urls/', views.urls.as_view()),
+    path('api/user/', views.getuser),
+    path('api/gen_200/', views.gen_200),
+    path('<str:rand>/', views.redirectView),
+    path('<str:rand>', views.redirectView),
 ]
