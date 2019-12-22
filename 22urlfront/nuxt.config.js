@@ -59,9 +59,9 @@ module.exports = {
     // See https://github.com/nuxt-community/axios-module#options
   },
   proxy: [
-    ['/auth/**', 'http://python:8000'],
-    ['/api/**', 'http://python:8000'],
-    [['/*', '!/_nuxt', '!/', '!/p/**'], {target: 'http://python:8000/', changeOrigin: false}],
+    ['/auth/**', { target: 'http://python:8000', changeOrigin: false}],
+    ['/api/**', { target: 'http://python:8000', changeOrigin: false}],
+    [['/*', '!/_nuxt/**', '!/', '!/p/**'], {target: 'http://python:8000/', changeOrigin: false}],
   ],
 
   markdownit: {
