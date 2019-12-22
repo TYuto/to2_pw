@@ -22,7 +22,7 @@
           class="my-2">
           <b-button
             id="popover-target-1"
-            :href="notify.url">
+            @click="onClickNotify">
             New
           </b-button>
           <b-popover
@@ -96,10 +96,13 @@ export default {
           return
         }
         const item = response.items[0].fields
-        this.notify.available = true
+        this.notify.available = true && this.$route.path == '/'
         this.notify.title = item.title
         this.notify.url = 'release/' + item.urlString
       })
+    },
+    onClickNotify: function() {
+      window.location = this.notify.url
     },
     ...mapMutations({
       SET_USER: 'SET_USER'
