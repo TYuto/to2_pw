@@ -118,7 +118,8 @@ class urls(APIView):
             url.save()
         url.save()
         return url.shorten_url
-def redirectView(request, domain='', rand=''):
+def redirectView(request, rand=''):
+    domain = request.get_host()
     now = datetime.now()
     try:
         url = Url.objects.filter(expiration_date__gt = now).get(shorten_url=domain+'/'+rand)

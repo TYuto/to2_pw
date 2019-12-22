@@ -17,17 +17,8 @@ services:
     extends:
       file: docker-compose.common.yml
       service: node
+    depends_on:
+      - python
     ports:
       - "3000:3000"
     command: [sh, -c, yarn install && yarn run dev]
-  nginx:
-    image: nginx
-    volumes:
-      - ./docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./22urlfront/static/:/var/www/front/
-    ports:
-      - "8001:8001"
-      - "8002:8002"
-    links:
-      - node
-      - python

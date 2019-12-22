@@ -49,7 +49,8 @@ module.exports = {
     }],
     '@nuxtjs/markdownit',
     '@nuxtjs/recaptcha',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/proxy',
   ],
   /*
   ** Axios module configuration
@@ -57,6 +58,11 @@ module.exports = {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
   },
+  proxy: [
+    ['/auth/*', 'http://python:8000'],
+    ['/api/*', 'http://python:8000'],
+    [['/api/*', '/*', '!/_nuxt', '!/', '!/p/**'], {target: 'http://python:8000/', changeOrigin: false}],
+  ],
 
   markdownit: {
     preset: 'default',
