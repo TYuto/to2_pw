@@ -92,7 +92,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': os.environ.get('DB_USER', 'changeme'),
         'PASSWORD': os.environ.get('DB_PASSWORD', 'changeme'),
-        'HOST': 'db',
+        'HOST': os.environ.get('DB_HOST', 'db'),
         'PORT': 5432,
     }
 }
@@ -163,6 +163,6 @@ else:
     logging.basicConfig(
         level = logging.DEBUG,
         format = '%(asctime)s %(levelname)s %(message)s',
-        filename = '/my_log_file.log',
+        filename = './my_log_file.log',
         filemode = 'a'
     )
