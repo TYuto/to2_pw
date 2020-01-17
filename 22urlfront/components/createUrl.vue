@@ -73,11 +73,15 @@ export default {
   },
   watch: {
     selected: function(){
-      this.url = 'to2.pw/' + 'o'.repeat(this.urllen())
+      this.resetUrl()
     },
     originalUrl: function(){
       this.varridate = /^(http\:\/\/|https\:\/\/)(.{4,})$/.test(this.originalUrl)
-      this.url = 'to2.pw/' + 'o'.repeat(this.urllen())
+      this.resetUrl()
+    },
+    selectedDomain:function() {
+      this.resetUrl()
+      this.selected = 'hour'
     }
   },
   mounted: async function() {
@@ -86,6 +90,9 @@ export default {
     await this.updateRecaptcha()
   },
   methods: {
+    resetUrl: function() {
+      this.url = this.selectedDomain.host + 'o'.repeat(this.urllen())
+    },
     initDomains: function() {
       axios.get('/api/domains/').then(response =>{
         this.domains = response.data
