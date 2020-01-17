@@ -20,4 +20,15 @@ class Url(models.Model):
     def __str__(self):
         return self.shorten_url +':'+ self.original_url
 
+class Domain(models.Model):
+    host = models.CharField(max_length=20) # localhost:3000
+    enable_hours = models.BooleanField()
+    enable_week = models.BooleanField()
+    enable_month = models.BooleanField()
+    def __str__(self):
+        hours = '3時間' if self.enable_hours else ''
+        week = '5日間' if self.enable_week else ''
+        month = '5ヶ月' if self.enable_month else ''
+        return self.host + ','.joins(hours, week, month)
+
     
