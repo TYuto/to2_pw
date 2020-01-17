@@ -3,6 +3,7 @@
     <section id="wraper">
       <navbarComp />
       <div style="width: 100%; height: 100%">
+        <urlEditTool />
         <b-card
           style="max-width: 700px"
           class="mx-auto my-3">
@@ -27,11 +28,13 @@ const contentful_client = createClient({
 });
 import navbarComp from '~/components/navbarComp.vue'
 import footerComp from '~/components/footerComp.vue'
+import urlEditTool from '~/components/urlEditTool.vue'
 
 export default {
   components: {
     navbarComp,
     footerComp,
+    urlEditTool,
   },
   data: function() {
     return {
