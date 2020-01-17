@@ -8,14 +8,32 @@
         :state="varridate"
         for="type-url"/>
     </b-input-group>
+    <b-dropdown
+      :text="selectedDomain.host"
+      variant="info">
+      <b-dropdown-item
+        v-for="domain in domains"
+        :key="domain.host"
+        @click="onSelectDomain(domain)"
+      >{{ domain.host }}</b-dropdown-item>
+    </b-dropdown>
     <b-form-radio-group
       id="radios2"
       v-model="selected"
       class="my-2 float-none"
       name="radioSubComponent">
-      <b-form-radio value="hour">3時間</b-form-radio>
-      <b-form-radio value="days">5日間</b-form-radio>
-      <b-form-radio value="month">5ヶ月間</b-form-radio>
+      <b-form-radio
+        :disabled="!selectedDomain.enable_hour"
+        value="hour"
+      >3時間</b-form-radio>
+      <b-form-radio
+        :disabled="!selectedDomain.enable_week"
+        value="days"
+      >5日間</b-form-radio>
+      <b-form-radio
+        :disabled="!selectedDomain.enable_months"
+        value="month"
+      >5ヶ月間</b-form-radio>
     </b-form-radio-group>
     <font-awesome-icon
       v-b-tooltip.hover
@@ -42,13 +60,15 @@ import axios from 'axios'
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 export default {
-  data(){
+  data: function(){
     return {
       url: '',
       originalUrl: '',
       selected: 'hour',
       varridate: null,
-      recaptcha: ''
+      recaptcha: '',
+      domains: [],
+      selectedDomain: { host: ''},
     }
   },
   watch: {
@@ -60,11 +80,21 @@ export default {
       this.url = 'to2.pw/' + 'o'.repeat(this.urllen())
     }
   },
-  async mounted() {
+  mounted: async function() {
+    this.initDomains()
     await this.$recaptcha.init()
     await this.updateRecaptcha()
   },
   methods: {
+    initDomains: function() {
+      axios.get('/api/domains/').then(response =>{
+        this.domains = response.data
+        this.selectedDomain = response.data[0]
+      })
+    },
+    onSelectDomain: function(domain) {
+      this.selectedDomain = domain
+    },
     urllen: function(){
       let len = 0
       switch(this.selected){
@@ -89,6 +119,7 @@ export default {
         original: this.originalUrl,
         period: this.selected,
         recaptcha: this.recaptcha,
+        domain_id: this.selectedDomain.pk,
       }
       axios.post('/api/urls/',data)
       .then(response => {
