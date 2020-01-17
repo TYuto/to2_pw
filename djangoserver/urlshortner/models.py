@@ -29,6 +29,6 @@ class Domain(models.Model):
         hours = '3時間' if self.enable_hours else ''
         week = '5日間' if self.enable_week else ''
         month = '5ヶ月' if self.enable_month else ''
-        return self.host + ','.joins(hours, week, month)
+        return self.host + ','.join([hours, week, month])
 
     

@@ -1,4 +1,4 @@
-from .models import Url
+from .models import Url, Domain
 from rest_framework.views import APIView
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404
@@ -39,8 +39,12 @@ class urls(APIView):
             original_url = request.data['original']
             period = request.data['period']
             recaptcha_token = request.data['recaptcha']
+            domain_id = request.data['domain_id']
         except KeyError:
             return HttpResponse('parameter doesnt mach',status=400)
+        domain = get_object_or_404(Domain, pk=domain_id)
+
+
         if not _verifyRecaptcha(recaptcha_token, 'create'):
             data = {'status': False,'message': 'reCAPTCHA認証に失敗しました'}
             json_str = json.dumps(data, ensure_ascii=False, indent=2)
@@ -67,22 +71,22 @@ class urls(APIView):
                 response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=406)
                 return response
         url.original_url = original_url
-        if period == 'hour':
+        if period == 'hour' and domain.enable_hours:
             url.validity_period = 60*60*3
             urllen +=2
             period = timedelta(hours=3)
-        elif period ==  'days':
+        elif period ==  'days' and domain.enable_week:
             url.validity_period = 60*60*24*5
             urllen += 3
             period = timedelta(days=5)
-        elif period ==  'month':
+        elif period ==  'month' and domain.enable_month:
             url.validity_period = 60*60*24*150
             urllen += 4
             period = timedelta(days=150)
         else:
             return HttpResponse('faild',status=500)
         url.expiration_date = now + period
-        data = {'status':True,'shorten_url': self._saveUrl(url, urllen)}
+        data = {'status':True,'shorten_url': self._saveUrl(url, domain, urllen)}
         json_str = json.dumps(data, ensure_ascii=False, indent=2)
         response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
         return response
@@ -103,17 +107,16 @@ class urls(APIView):
         return HttpResponse('', status=200)
 
 
-    def _createUrl(self,urllen):
-        domains = os.environ.get('REDIRECT_DOMAINS', 'red.localhost').split()
+    def _createUrl(self, domain,urllen):
         ranstr = 'abcdefghijklmnpqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ123456789'
-        return random.choice(domains) + ''.join([random.choice(ranstr) for i in range(urllen)])
-    def _saveUrl(self,url,urllen):
+        return domain.host + ''.join([random.choice(ranstr) for i in range(urllen)])
+    def _saveUrl(self,url, domain, urllen):
         now = datetime.now()
-        url.shorten_url = self._createUrl(urllen)
+        url.shorten_url = self._createUrl(domain, urllen)
         try:
             oldurl = Url.objects.filter(expiration_date__gt = now).get(shorten_url = url.shorten_url)
             if oldurl.expiration_date.timestamp() > now.timestamp():
-                return self._saveUrl(url,urllen)
+                return self._saveUrll(url,domain, urllen)
         except Url.DoesNotExist:
             url.save()
         url.save()
@@ -150,3 +153,17 @@ def _verifyRecaptcha(token, action):
     if (not result['success']) or (not result['action'] == action):
         return False
     return True
+
+class domains(APIView):
+    def get(self, request):
+        data = [
+            {
+                'host': domain.host,
+                'enable_hour': domain.enable_hours,
+                'enable_week': domain.enable_week,
+                'enable_months': domain.enable_month,
+                'pk': domain.pk
+            } for domain in Domain.objects.all()]
+        json_str = json.dumps(data, ensure_ascii=False, indent=2)
+        response = HttpResponse(json_str, content_type='application/json; charset=UTF-8', status=200)
+        return response
