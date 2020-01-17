@@ -3,7 +3,7 @@
     class="footer bg-light pt-3 pb-3">
     <div class="">
       <p class="text-muted text-center">
-        to2.pw &copy;2018 YutoTamura
+        to2.pw &copy;2020 YutoTamura
         <a
           class="text-muted text-center"
           href="/p/privacy_policy">プライバシーポリシー</a></p>
