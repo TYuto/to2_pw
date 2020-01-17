@@ -1,5 +1,6 @@
 <template>
   <b-card 
+    v-show="show"
     style="max-width: 700px"
     class="mx-auto my-3">
     <b-modal
@@ -80,6 +81,12 @@ export default {
       urls: [],
       delUrl: {},
       isDeleteModalOpen: false,
+      show: false,
+    }
+  },
+  watch: {
+    urls: function() {
+      this.show = this.urls.length > 0
     }
   },
   mounted: function(){
