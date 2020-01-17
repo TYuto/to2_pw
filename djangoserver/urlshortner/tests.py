@@ -1,6 +1,6 @@
 from django.test import TestCase
 from .views import urls
-from .models import Url
+from .models import Url, Domain
 from unittest import mock
 # Create your tests here.
 
@@ -10,18 +10,21 @@ def dummy_return_true(token, action):
 def dummy_return_false(token, action):
     return False
 class shortenUrlGenerateCase(TestCase):
-    correct_parameter = { 'original' : 'https://test.com/', 'period': 'hour', 'recaptcha': 'hello' }
+    correct_parameter = { 'original' : 'https://test.com/', 'period': 'hour', 'recaptcha': 'hello' , 'domain_id': 1}
     def setUp(self):
-        pass
+        self.domain = Domain(host='localhost:3000/', enable_hours=True, enable_week=True, enable_month=True)
+        self.domain.save()
+        self.correct_parameter['domain_id'] = self.domain.pk
     def tearDown(self):
         Url.objects.all().delete()
+        Domain.objects.all().delete()
 
     @mock.patch('urlshortner.views._verifyRecaptcha', dummy_return_true)
     def test_create_shortend_url(self):
         """
         正常に作成される
         """
-        result = self.client.post('/api/urls/', { 'original' : 'https://test.com/', 'period': 'hour', 'recaptcha': 'hello' })
+        result = self.client.post('/api/urls/', self.correct_parameter)
         self.assertEqual(result.status_code, 200)
         self.assertEqual(Url.objects.filter(shorten_url=result.json()['shorten_url']).count(), 1)
 
@@ -54,5 +57,5 @@ class shortenUrlGenerateCase(TestCase):
     def test_generate_specified_length_str(self):
         for i in range(5):
             m = urls()
-            result = m._createUrl(i).split('/')[1]
+            result = m._createUrl(self.domain, i).split('/')[1]
             self.assertEqual(i, len(result))
