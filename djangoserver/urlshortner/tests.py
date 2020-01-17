@@ -12,7 +12,7 @@ def dummy_return_false(token, action):
 class shortenUrlGenerateCase(TestCase):
     correct_parameter = { 'original' : 'https://test.com/', 'period': 'hour', 'recaptcha': 'hello' , 'domain_id': 1}
     def setUp(self):
-        self.domain = Domain(host='localhost:3000/', enable_hours=True, enable_week=True, enable_month=True)
+        self.domain = Domain(host='localhost:3000/', enable_hours=True, enable_week=True, enable_month=False)
         self.domain.save()
         self.correct_parameter['domain_id'] = self.domain.pk
     def tearDown(self):
@@ -52,7 +52,21 @@ class shortenUrlGenerateCase(TestCase):
             r = self.client.post('/api/urls/', self.correct_parameter)
             self.assertTrue(r.json()['status'])
         r = self.client.post('/api/urls/', self.correct_parameter)
-        self.assertFalse(r.json()['status'])
+ 
+    @mock.patch('urlshortner.views._verifyRecaptcha', dummy_return_true)
+    def test_invalid_domain(self):
+        param = self.correct_parameter.copy()
+        param['domain_id'] += 1
+        result = self.client.post('/api/urls/', param)
+        self.assertEqual(result.status_code, 404)
+
+    @mock.patch('urlshortner.views._verifyRecaptcha', dummy_return_true)
+    def test_invalid_period(self):
+        param = self.correct_parameter.copy()
+        param['period'] = 'month' 
+        result = self.client.post('/api/urls/', param)
+        self.assertEqual(result.status_code, 500)
+
 
     def test_generate_specified_length_str(self):
         for i in range(5):
