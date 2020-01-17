@@ -2,11 +2,7 @@
   <section>
     <section id="wraper">
       <navbarComp />
-      <createUrl @create="urlCreated"/>
-      <urlTable
-        ref="table"
-        @openModal="openUrlModal"/>
-      <urlView ref="urlModal"/>
+      <urlEditTool />
       <b-card
         style="max-width: 700px"
         class="mx-auto my-3">
@@ -25,17 +21,13 @@ axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 import navbarComp from '~/components/navbarComp.vue'
 import footerComp from '~/components/footerComp.vue'
-import createUrl from '~/components/createUrl.vue'
-import urlTable from '~/components/urlTable.vue'
-import urlView from '~/components/urlView.vue'
+import urlEditTool from '~/components/urlEditTool.vue'
 import description from '~/components/md/description.vue'
 export default {
   components: {
     navbarComp,
     footerComp,
-    createUrl,
-    urlTable,
-    urlView,
+    urlEditTool,
     description
   },
   created () {
@@ -50,13 +42,6 @@ export default {
         window.location.href = '/p/maintenance'
       }
     },
-    urlCreated: function(shortenUrl) {
-      this.$refs.table.update();
-      this.$refs.urlModal.open(shortenUrl)
-    },
-    openUrlModal: function(shortenUrl){
-      this.$refs.urlModal.open(shortenUrl)
-    }
   }
 }
 </script>
