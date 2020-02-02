@@ -1,7 +1,7 @@
 to2.pw
 ====
 
-最短2文字(ドメインを除く)の短縮URLを作成できるウェブアプリです([to2.pw](https://to2.pw)/[ee.sb](https://ee.sb)にて利用できます)
+最短2文字(ドメインを除く)の短縮URLを作成できるウェブアプリです([to2.pw](https://to2.pw) / [ee.sb](https://ee.sb)にて利用できます)
 
 ## 説明
 有効時間により発行される短縮URLの長さが変わります, 有効期限を3時間に設定するとドメイン + 2文字の短縮URLを発行することができます.
@@ -24,6 +24,4 @@ docker-composeを使用しています
 
 ## ライセンス
 
-[MIT](https://github.com/tcnksm/tool/blob/master/LICENCE)
-
-
+AGPL
