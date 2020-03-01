@@ -88,6 +88,15 @@ module.exports = {
     version: 3     // Version
   },
 
+  router: {
+    extendRoutes (routes, resolve) {
+      routes.push({
+        name: 'custom',
+        path: '*',
+        component: resolve(__dirname, 'pages/p/404.vue')
+      })
+    }
+  },
   /*
   ** Build configuration
   */
