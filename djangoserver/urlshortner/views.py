@@ -128,7 +128,7 @@ def redirectView(request, rand=''):
         url = Url.objects.filter(expiration_date__gt = now).get(shorten_url=domain+'/'+rand)
         return redirect(url.original_url)
     except:
-        return redirect('/')
+        return redirect('https://to2.pw/p/404?url=''https://' + domain + '/' + rand)
 def getuser(request):
     if request.user.is_authenticated:
         data = {'authed': True,'username': request.user.username}
