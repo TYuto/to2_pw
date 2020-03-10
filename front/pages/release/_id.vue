@@ -15,17 +15,9 @@
 </template>
 
 <script>
-import { createClient } from 'contentful'
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer'
-
 import VRuntimeTemplate from 'v-runtime-template'
 import navbar from '~/components/navbar.vue'
 import footerc from '~/components/footer.vue'
-
-const contentfulClient = createClient({
-  space: process.env.CTF_SPACE_ID,
-  accessToken: process.env.CTF_CDA_ACCESS_TOKEN
-})
 
 export default {
   components: {
@@ -33,17 +25,9 @@ export default {
     footerc,
     VRuntimeTemplate
   },
-  props: [
-    'contentType'
-  ],
-  async asyncData ({ params }) {
-    const response = await contentfulClient.getEntries({
-      content_type: 'newRelease',
-      'fields.urlString': params.id,
-      limit: 1
-    })
-    console.log(response.items)
-    return { post: '<section>' + documentToHtmlString(response.items[0].fields.body) + '</section>' }
+  async asyncData ({ params, app }) {
+    const post = await app.$getContents('pages', 'fields.urlString', params.id)
+    return { post }
   }
 }
 </script>

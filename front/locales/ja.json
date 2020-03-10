@@ -10,7 +10,8 @@
         "originalUrl": "元のURL",
         "login": "ログイン",
         "logout": "ログアウト",
-        "lang": "言語"
+        "lang": "言語",
+        "privacyPolicy": "プライバシーポリシー"
     },
     "message": {
         "showQr": "QRコードを表示"

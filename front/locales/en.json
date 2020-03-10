@@ -10,7 +10,8 @@
         "originalUrl": "original url",
         "login": "login",
         "logout": "logout",
-        "lang": "lang"
+        "lang": "lang",
+        "privacyPolicy": "privacy policy"
     },
     "message": {
         "showQr": "Show QR code"

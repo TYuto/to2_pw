@@ -6,7 +6,7 @@
         shortest-URL.com &copy; YutoTamura
         <a
           class="text-muted text-center"
-          href="/p/privacy_policy">プライバシーポリシー</a></p>
+          href="/p/privacy_policy">{{ $t('common.privacyPolicy') }}</a></p>
     </div>
   </footer>
 </template>
