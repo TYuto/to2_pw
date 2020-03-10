@@ -1,0 +1,18 @@
+{
+    "common": {
+        "create": "作成",
+        "copy": "コピー",
+        "delete": "削除",
+        "period": "期間",
+        "domain": "ドメイン",
+        "shortenUrl": "短縮URL",
+        "yourUrl": "短縮元URL",
+        "originalUrl": "元のURL",
+        "login": "ログイン",
+        "logout": "ログアウト",
+        "lang": "言語"
+    },
+    "message": {
+        "showQr": "QRコードを表示"
+    }
+}

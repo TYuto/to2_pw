@@ -1,22 +1,22 @@
 <template>
   <div>
     <b-card class="card mx-auto my-3">
-      <b-input-group class="my-1 mx-2" prepend="your url">
+      <b-input-group class="my-1 mx-2" :prepend="$t('common.yourUrl')">
         <b-form-input />
-        <b-dropdown text="period" variant="info">
+        <b-dropdown :text="$t('common.period')" variant="info">
           <b-dropdown-item>Action A</b-dropdown-item>
           <b-dropdown-item>Action B</b-dropdown-item>
         </b-dropdown>
-        <b-dropdown text="domain" variant="info">
+        <b-dropdown :text="$t('common.domain')" variant="info">
           <b-dropdown-item>Action A</b-dropdown-item>
           <b-dropdown-item>Action B</b-dropdown-item>
         </b-dropdown>
       </b-input-group>
-      <b-input-group class="my-2 float-left mx-2" style="max-width: 75%" prepend="shorten url">
+      <b-input-group class="my-2 float-left mx-2" style="max-width: 75%" :prepend="$t('common.shortenUrl')">
         <b-form-input :readonly="true"/>
-        <b-button variant="info"> copy </b-button>
+        <b-button variant="info"> {{ $t('common.copy') }}</b-button>
       </b-input-group>
-      <b-button class="col-2 my-2 float-right " variant="info"> create </b-button>
+      <b-button class="col-2 my-2 float-right " variant="info"> {{ $t('common.create') }} </b-button>
     </b-card>
 
     <b-card
@@ -24,11 +24,13 @@
       class="mx-auto my-3">
       <span
         class="d-inline-block text-truncate"
-        style="width: 55%"> original url
+        style="width: 55%">
+        {{ $t('common.originalUrl') }}
       </span>
       <span
         class="d-inline-block text-truncate"
-        style="width: 30%"> shorten url
+        style="width: 30%">
+        {{ $t('common.shortenUrl') }}
       </span>
       <div
         v-for="(url, i) in shorten_urls"
@@ -46,22 +48,30 @@
         </span>
         <span
           class="d-inline-block text-truncate"
-          style="width: 27%">
+          style="width: 23%">
           <b-link
             :href="'https://' + url.shorten_url"
             class="text-dark">
             {{ url.shorten_url }}
           </b-link>
         </span>
-          <b-btn variant="outline-info" class="px-0 py-0 mx-1 my-1 float-right">
+        <span>
+          <b-btn
+            v-b-popover.hover.top="$t('common.copy')"
+            variant="outline-info"
+            class="px-0 py-0 mx-1 my-1 float-right">
             <b-icon-documents font-scale="1"/>
           </b-btn>
-
-          <b-btn variant="outline-info" class="px-0 py-0 mx-1 my-1 float-right">
+          <b-btn
+            v-b-popover.hover.top="$t('message.showQr')"
+            variant="outline-info"
+            class="px-0 py-0 mx-1 my-1 float-right">
             <b-icon-box-arrow-up-right font-scale="1"/>
           </b-btn>
-
-          <b-btn variant="outline-info" class="px-0 py-0 mx-1 my-1 float-right">
+          <b-btn
+            v-b-popover.hover.top="$t('common.delete')"
+            variant="outline-info"
+            class="px-0 py-0 mx-1 my-1 float-right">
             <b-icon-trash font-scale="1"/>
           </b-btn>
         </span>

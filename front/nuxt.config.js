@@ -46,7 +46,24 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    [
+      'nuxt-i18n',
+      {
+        strategy: 'prefix_and_default',
+        locales: [
+          { code: 'ja', iso: 'ja_JP', file: 'ja.json' },
+          { code: 'en', iso: 'en-US', file: 'en.json' },
+        ],
+        defaultLocale: 'ja',
+        vueI18n: {
+          fallbackLocale: 'en',
+        },
+        vueI18nLoader: true,
+        lazy: true,
+        langDir: 'locales/',
+      },
+    ],
   ],
 
   bootstrapVue: {

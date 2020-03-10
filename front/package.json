@@ -20,6 +20,7 @@
     "bootstrap-vue": "^2.0.0",
     "contentful": "^7.14.0",
     "nuxt": "^2.0.0",
+    "nuxt-i18n": "^6.6.0",
     "v-runtime-template": "^1.10.0"
   },
   "devDependencies": {

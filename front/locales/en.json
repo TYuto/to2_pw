@@ -1,0 +1,18 @@
+{
+    "common": {
+        "create": "create",
+        "copy": "copy",
+        "delete": "delete",
+        "period": "period",
+        "domain": "domain",
+        "shortenUrl": "shorten url",
+        "yourUrl": "your url",
+        "originalUrl": "original url",
+        "login": "login",
+        "logout": "logout",
+        "lang": "lang"
+    },
+    "message": {
+        "showQr": "Show QR code"
+    }
+}
