@@ -48,6 +48,10 @@ export default {
     // Doc: https://github.com/nuxt-community/dotenv-module
     '@nuxtjs/dotenv'
   ],
+
+  bootstrapVue: {
+    icons: true // Install the IconsPlugin (in addition to BootStrapVue plugin
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
@@ -62,6 +66,7 @@ export default {
     ** You can extend webpack config here
     */
     extend (config, ctx) {
+      config.resolve.alias["vue"] = "vue/dist/vue.common";
     }
   }
 }
