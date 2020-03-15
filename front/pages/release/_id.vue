@@ -26,7 +26,7 @@ export default {
     VRuntimeTemplate
   },
   async asyncData ({ params, app }) {
-    const post = await app.$getContents('pages', 'fields.urlString', params.id)
+    const post = await app.$getContents('newRelease', 'fields.urlString', params.id)
     return { post }
   }
 }

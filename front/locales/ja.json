@@ -11,9 +11,22 @@
         "login": "ログイン",
         "logout": "ログアウト",
         "lang": "言語",
-        "privacyPolicy": "プライバシーポリシー"
+        "privacyPolicy": "プライバシーポリシー",
+        "hour": "3時間",
+        "days": "5日間",
+        "month": "5ヶ月間",
+        "button": {
+            "loginWithTwitter": "Twitterでログイン",
+            "loginWithGithub": "GitHubでログイン"
+        }
     },
     "message": {
-        "showQr": "QRコードを表示"
+        "showQr": "QRコードを表示",
+        "copied": "コピーされました",
+        "domainPlus": "ドメイン + ",
+        "notFound": "以下のページは見つかりませんでした, 大文字小文字等ご確認いただき, アクセスお願いします."
+    },
+    "createUrl": {
+        "urlLen": "短縮URLの長さ"
     }
 }

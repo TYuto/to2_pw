@@ -11,9 +11,22 @@
         "login": "login",
         "logout": "logout",
         "lang": "lang",
-        "privacyPolicy": "privacy policy"
+        "privacyPolicy": "privacy policy",
+        "hour": "3 hour",
+        "days": "5 days",
+        "month": "5 months",
+        "button": {
+            "loginWithTwitter": "Login with Twitter",
+            "loginWithGithub": "Login With GitHub"
+        }
     },
     "message": {
-        "showQr": "Show QR code"
+        "showQr": "Show QR code",
+        "copied": "url copied.",
+        "domainPlus": "domain + ",
+        "notFound": "The page showing below is NOT found. Please check URL and access."
+    },
+    "createUrl": {
+        "urlLen": "length of shorten url"
     }
 }

@@ -16,6 +16,17 @@ const getContents = async function (type, field, key) {
   return '<section>' + documentToHtmlString(response.items[0].fields.body) + '</section>'
 }
 
+const getEntry = async function (type, field, key) {
+  console.log('func called')
+  const response = await contentfulClient.getEntries({
+    content_type: type,
+    [field]: key,
+    limit: 1
+  })
+  return response.items
+}
+
 export default ({ app }, inject) => {
+  inject('getEntry', getEntry)
   inject('getContents', getContents)
 }

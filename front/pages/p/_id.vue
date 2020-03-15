@@ -33,9 +33,6 @@ export default {
     footerc,
     VRuntimeTemplate
   },
-  props: [
-    'contentType'
-  ],
   async asyncData ({ params }) {
     const response = await contentfulClient.getEntries({
       content_type: 'pages',

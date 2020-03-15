@@ -20,5 +20,5 @@ services:
     depends_on:
       - python
     ports:
-      - "3000:3000"
+      - "3001:3000"
     command: [sh, -c, yarn install && yarn run dev]

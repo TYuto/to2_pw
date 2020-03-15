@@ -1,4 +1,4 @@
-
+require('dotenv').config()
 export default {
   mode: 'universal',
   /*
@@ -28,7 +28,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-      '@/plugins/utils'
+      '@/plugins/utils',
+      '@/plugins/axios',
+      '@/plugins/font-awesome',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -52,6 +54,7 @@ export default {
       'nuxt-i18n',
       {
         strategy: 'prefix_and_default',
+        seo: true,
         locales: [
           { code: 'ja', iso: 'ja_JP', file: 'ja.json' },
           { code: 'en', iso: 'en-US', file: 'en.json' },
@@ -65,6 +68,9 @@ export default {
         langDir: 'locales/',
       },
     ],
+    '@nuxtjs/axios',
+    '@nuxtjs/proxy',
+    '@nuxtjs/recaptcha'
   ],
 
   bootstrapVue: {
@@ -76,8 +82,23 @@ export default {
   */
   axios: {
   },
+
+  proxy: [
+    ['/auth/**', { target: 'http://localhost:8000', changeOrigin: false}],
+    ['/api/**', { target: 'http://localhost:8000/', changeOrigin: false}],
+    [['/*', '!/_nuxt/**', '!/', '!/p/**', '!/release/**', '!/en/**', '!/en', '!/404**'], {target: 'http://localhost:8000/', changeOrigin: false}],
+  ],
+
+  recaptcha: {
+    hideBadge: false, // Hide badge element (v3)
+    siteKey: process.env.RECAPTCHA_SITEKEY ,    // Site key for requests
+    version: 3     // Version
+  },
+
+  router: {
+  },
   /*
-  ** Build configuration
+  /*
   */
   build: {
     /*
