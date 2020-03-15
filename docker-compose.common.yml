@@ -16,6 +16,6 @@ services:
   node:
     image: node:10.7.0
     volumes:
-      - ./22urlfront:/src
+      - ./front:/src
       - .docker_node_modules:/src/node_modules
     working_dir: /src

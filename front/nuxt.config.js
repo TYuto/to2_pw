@@ -5,14 +5,14 @@ export default {
   ** Headers of the page
   */
   head: {
-    title: process.env.npm_package_name || '',
+    title: '世界一短い短縮URL作成ツール | shortest-URL.com',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
+      { hid: 'description', name: 'description', 'about. to2(ツーツー)は世界一短い短縮URLを発行できる短縮URL生成サービスです,最短でドメイン+2文字の短縮URLを発行できます.' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.png' }
     ]
   },
   /*
@@ -86,7 +86,17 @@ export default {
   proxy: [
     ['/auth/**', { target: 'http://localhost:8000', changeOrigin: false}],
     ['/api/**', { target: 'http://localhost:8000/', changeOrigin: false}],
-    [['/*', '!/_nuxt/**', '!/', '!/p/**', '!/release/**', '!/en/**', '!/en', '!/404**'], {target: 'http://localhost:8000/', changeOrigin: false}],
+    [[
+      '/*',
+      '!/_nuxt/**',
+      '!/',
+      '!/p/**',
+      '!/release/**',
+      '!/en/**',
+      '!/en',
+      '!/404**',
+      '!/favicon.png'
+    ], {target: 'http://localhost:8000/', changeOrigin: false}],
   ],
 
   recaptcha: {
