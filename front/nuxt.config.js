@@ -81,11 +81,13 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: "http://localhost:3000",
+    browserBaseURL: "https://shortest-url.com",
   },
 
   proxy: [
-    ['/auth/**', { target: 'http://localhost:8000', changeOrigin: false}],
-    ['/api/**', { target: 'http://localhost:8000/', changeOrigin: false}],
+    ['/auth/**', { target: 'http://python:8000', changeOrigin: false}],
+    ['/api/**', { target: 'http://python:8000/', changeOrigin: false}],
     [[
       '/*',
       '!/_nuxt/**',
@@ -96,7 +98,7 @@ export default {
       '!/en',
       '!/404**',
       '!/favicon.png'
-    ], {target: 'http://localhost:8000/', changeOrigin: false}],
+    ], {target: 'http://python:8000/', changeOrigin: false}],
   ],
 
   recaptcha: {
